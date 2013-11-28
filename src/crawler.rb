@@ -8,6 +8,10 @@ class Crawler
 	end
 
 	def fetch_lists
-		pg = Nokogiri::HTML(open(START_PAGE))
+		src = open(START_PAGE)
+		pg = Nokogiri::HTML(src)
+		pg.css('table tbody tr td > a').each do |link|
+			puts "#{link.content} - #{link.attribute('href')}"
+		end
 	end
 end
