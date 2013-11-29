@@ -9,10 +9,16 @@ class Crawler
 	end
 
 	def fetch_lists
-		src = open(START_PAGE)
+		src = open START_PAGE
 		pg = Nokogiri::HTML(src)
 		pg.css('table tbody tr td > a').each do |link|
 			puts "#{BASE_URL + link.attribute('href')}"
+			names_src = open URI::encode(BASE_URL + link.attribute('href').to_s().encode('big5'))
+			names_page = Nokogiri::HTML(names_src)
+			names_page.css('a').each do |name_link|
+				puts name_link.content
+			end
+			break
 		end
 	end
 end
