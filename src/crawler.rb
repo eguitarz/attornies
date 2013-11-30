@@ -17,6 +17,9 @@ class Crawler
 			names_page = Nokogiri::HTML(names_src)
 			names_page.css('a').each do |name_link|
 				puts name_link.content
+				script = name_link.attribute('onclick').to_s
+				params_hash = script.split(';')
+				p params_hash
 			end
 			break
 		end
