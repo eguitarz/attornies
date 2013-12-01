@@ -19,7 +19,11 @@ class Crawler
 				puts name_link.content
 				script = name_link.attribute('onclick').to_s
 				params_hash = script.split(';')
-				p params_hash
+				params_hash.map do |v|
+					result = v.split '='
+					p result
+				end
+
 			end
 			break
 		end
