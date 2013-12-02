@@ -16,12 +16,13 @@ class Crawler
 			names_src = open URI::encode(BASE_URL + link.attribute('href').to_s().encode('big5'))
 			names_page = Nokogiri::HTML(names_src)
 			names_page.css('a').each do |name_link|
-				puts name_link.content
+				# puts name_link.content
 				script = name_link.attribute('onclick').to_s
 				params_hash = script.split(';')
 				params_hash.map do |v|
 					result = v.split '='
-					p result
+					result.last.gsub!('\'', '') if result.last
+					p result.last
 				end
 
 			end
